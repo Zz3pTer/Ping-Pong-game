@@ -39,16 +39,16 @@ BLUE = (200, 255, 255)
 win_width = 600
 win_height = 500
 window = display.set_mode((win_width, win_height))
-window.fill(BLUE)
+background = transform.scale(image.load("galaxy.jpg"), (win_width, win_height))
 
 #create sprites (paddle and balls)
 paddleA_img = "paddlered.png"
 paddleB_img = "paddleblue.png"
 ball_img = "ball.png"
 
-paddleLeft = Paddle (paddleA_img, 20, 200, 25, 130, 7)
-paddleRight = Paddle (paddleB_img, 520, 200, 25, 130, 7)
-ball = GameSprite(ball_img, 330, 200, 50, 50, 40)
+paddleLeft = Paddle (paddleA_img, 20, 200, 27, 140, 7)
+paddleRight = Paddle (paddleB_img, 520, 200, 27, 140, 7)
+ball = GameSprite(ball_img, 330, 200, 65, 65, 70)
 
 
 #game loop
@@ -75,7 +75,7 @@ while game:
             game = False
 
     if finish != True:
-        window.fill (BLUE)
+        window.blit(background, (0, 0))
         paddleLeft.update_left()
         paddleRight.update_right()
 
@@ -97,12 +97,12 @@ while game:
             speed_y *= -1
 
         #if ball flies behind this paddle, display loss condition for player left
-        if ball.rect.x < 0:
+        if ball.rect.x > win_width:
             finish = False
             window.blit(lose1, (125, 230))
 
         #if the ball flies behind this paddle, display loss condition for player right
-        if ball.rect.x > win_width:
+        if ball.rect.x < 0:
             finish = False
             window.blit(lose2, (125, 230))
 
