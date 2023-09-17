@@ -39,7 +39,7 @@ BLUE = (200, 255, 255)
 win_width = 600
 win_height = 500
 window = display.set_mode((win_width, win_height))
-background = transform.scale(image.load("galaxy.jpg"), (win_width, win_height))
+background = transform.scale(image.load("court.png"), (win_width, win_height))
 
 #create sprites (paddle and balls)
 paddleA_img = "paddlered.png"
@@ -47,7 +47,7 @@ paddleB_img = "paddleblue.png"
 ball_img = "ball.png"
 
 paddleLeft = Paddle (paddleA_img, 20, 200, 27, 140, 7)
-paddleRight = Paddle (paddleB_img, 520, 200, 27, 140, 7)
+paddleRight = Paddle (paddleB_img, 553, 200, 27, 140, 7)
 ball = GameSprite(ball_img, 330, 200, 65, 65, 70)
 
 
@@ -63,15 +63,15 @@ score2 = 0
 font.init()
 font = font.Font(None, 50)
 
-lose1 = font.render('BLUE PLAYER LOSE!', True, (0, 0, 180))
-lose2 = font.render('RED PLAYER LOSE!', True, (180, 0, 0))
+lose1 = font.render('BLUE PLAYER LOST!', True, (0, 0, 180))
+lose2 = font.render('RED PLAYER LOST!', True, (180, 0, 0))
 
 speed_x = 3
 speed_y = 3
 
 while game:
     for e in event.get():
-        if e.type ==QUIT:
+        if e.type == QUIT:
             game = False
 
     if finish != True:
@@ -83,13 +83,13 @@ while game:
         ball.rect.y += speed_y
 
         if sprite.collide_rect(paddleLeft, ball):
-            speed_x *= -1
-            speed_y *= 1
+            speed_x *= -1.02
+            speed_y *= 1.02
             score1 += 1
 
         elif sprite.collide_rect(paddleRight, ball):
-            speed_x *= -1
-            speed_y *= 1
+            speed_x *= -1.02
+            speed_y *= 1.02
             score2 += 1
 
         #ball bounces when hit the up or bottom wall
