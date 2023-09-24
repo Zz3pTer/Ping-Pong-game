@@ -56,8 +56,8 @@ game = True
 finish = False
 clock = time.Clock()
 FPS = 60
-score1 = 0
-score2 = 0
+points1 = 0
+points2 = 0
 
 #fonts
 font.init()
@@ -65,8 +65,11 @@ font = font.Font(None, 50)
 
 lose1 = font.render('BLUE PLAYER LOST!', True, (0, 0, 180))
 lose2 = font.render('RED PLAYER LOST!', True, (180, 0, 0))
+score1 = font.render("Blue score: " + str(points1), True, (0, 0, 180))
+score2 = font.render('Red score: ' + str(points2), True, (180, 0, 0))
 
-speed_x = 3
+
+speed_x = -3
 speed_y = 3
 
 while game:
@@ -78,19 +81,24 @@ while game:
         window.blit(background, (0, 0))
         paddleLeft.update_left()
         paddleRight.update_right()
+        window.blit(score1, (20, 20))
+        window.blit(score2, (20, 60))
 
         ball.rect.x += speed_x
         ball.rect.y += speed_y
 
-        if sprite.collide_rect(paddleLeft, ball):
+        if sprite.collide_rect(paddleRight, ball):
             speed_x *= -1.02
             speed_y *= 1.02
-            score1 += 1
+            points1 += 1
+            score1 = font.render("Blue score: " + str(points1), True, (0, 0, 180))
 
-        elif sprite.collide_rect(paddleRight, ball):
+        elif sprite.collide_rect(paddleLeft, ball):
             speed_x *= -1.02
             speed_y *= 1.02
-            score2 += 1
+            points2 += 1
+            score2 = font.render('Red score: ' + str(points2), True, (180, 0, 0))
+
 
         #ball bounces when hit the up or bottom wall
         if ball.rect.y > win_height-50 or ball.rect.y < 0:
